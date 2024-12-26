@@ -5,6 +5,7 @@
 *.dylib
 *.test
 *.out
+cluide
 
 # Test binary, build output
 *.out
