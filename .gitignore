@@ -1,0 +1,36 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Test binary, build output
+*.out
+*.log
+
+# Dependency directories
+vendor/
+node_modules/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Go coverage files
+*.coverprofile
+*.cov
+*.coverage
+
+# Go binaries
+bin/
