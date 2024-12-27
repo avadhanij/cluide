@@ -34,6 +34,7 @@ var askChatCmd = &cobra.Command{
 		query := args[0]
 		client := resty.New()
 		apiToken := os.Getenv("OPENAI_API_KEY")
+
 		data := ChatRequest{
             Model: model,
 			Store: false,
@@ -44,7 +45,7 @@ var askChatCmd = &cobra.Command{
                 },
             },
         }
-		jsonData, err := utils.FormatOutput(data)
+		jsonData, err := utils.CreateJSONString(data)
 		if err != nil {
 			fmt.Println("Error formatting JSON data:", err)
 			return

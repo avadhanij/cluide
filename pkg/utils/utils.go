@@ -8,7 +8,7 @@ import (
 )
 
 // FormatOutput formats the output as a JSON string.
-func FormatOutput(data interface{}) (string, error) {
+func CreateJSONString(data interface{}) (string, error) {
 	output, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return "", err
