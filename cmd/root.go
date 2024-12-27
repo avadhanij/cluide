@@ -9,10 +9,9 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
     Use:   "cluide",
-    Short: "Command line buddy to send queries to AI platforms",
-    Long:  `Cluide is a command line tool that allows you to send queries to AI platforms like OpenAI's GPT-3 and receive responses.`,
+    Short: "Command line utility to send queries to popular AI platforms such as OpenAI's GPT-3 or Anthropic's Claude, etc. and receive responses.",
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Hi, I am Cluide! Use the --help flag to see available commands.")
+        fmt.Println("Use the --help flag to see available commands.")
     },
 }
 

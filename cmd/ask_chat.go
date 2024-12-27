@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/avadhanij/cluide/pkg/utils"
+	"github.com/fatih/color"
 	"github.com/go-resty/resty/v2"
 	"github.com/spf13/cobra"
 )
@@ -25,8 +26,8 @@ type Message struct {
 
 var askChatCmd = &cobra.Command{
     Use:   "ask-chat",
-    Short: "This subcommand directs questions to chatgpt. Post the question as an argument wrapped in quotes.",
-    Long:  `Interacting with OpenAI's ChatGPT models quire a API key that needs to be set as an environment
+    Short: "This subcommand directs queries to chatgpt. Post the query as an argument wrapped in quotes.",
+    Long:  `Interacting with OpenAI's ChatGPT models require a API key that needs to be set as an environment
 	variable - OPENAI_API_KEY. The question should be passed as an argument to the subcommand.`,
 	Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
@@ -69,7 +70,7 @@ var askChatCmd = &cobra.Command{
 			for _, choice := range choices {
 				choiceMap := choice.(map[string]interface{})
 				message := choiceMap["message"].(map[string]interface{})
-				fmt.Printf("Response: \n\n%s \n", message["content"].(string))
+				color.Green("\n%s \n", message["content"].(string))
 				break
 			}
 		}
