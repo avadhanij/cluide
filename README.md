@@ -1,4 +1,4 @@
-# Cluide
+# Cluide - Command Line AI Guide
 
 Cluide is a simple terminal utility to help you easily send queries to popular AI platforms and get answers
 without having to leave the terminal.
