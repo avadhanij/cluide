@@ -11,6 +11,18 @@ Cluide can currently work with
 
 # Usage
 
+## Config
+
+The basic requirement to interact with any AI platform is an API key. The API keys can either be set as environment variables or
+be provided as part of the cluide-config YAML file. The file must be placed in your home directory - `$HOME/.cluide-config.yml`
+
+Example file
+
+```
+openai:
+    api_key: <insert key here>
+```
+
 ## ChatGPT
 
 To use cluide with ChatGPT, you will first need to get an API key from OpenAI developer platform - https://platform.openai.com/

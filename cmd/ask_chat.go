@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/go-resty/resty/v2"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var model string 
@@ -27,13 +28,31 @@ type Message struct {
 var askChatCmd = &cobra.Command{
     Use:   "ask-chat",
     Short: "This subcommand directs queries to chatgpt. Post the query as an argument wrapped in quotes.",
-    Long:  `Interacting with OpenAI's ChatGPT models require a API key that needs to be set as an environment
-	variable - OPENAI_API_KEY. The question should be passed as an argument to the subcommand.`,
+    Long:  `Interacting with OpenAI's ChatGPT models require a API key that needs to be set as either as an environment
+	variable - OPENAI_API_KEY, or provided in the cluide-config YAML file.`,
 	Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
+		var apiToken string
 		query := args[0]
 		client := resty.New()
-		apiToken := os.Getenv("OPENAI_API_KEY")
+		viper.AutomaticEnv()
+		viper.BindEnv("openai.api_key", "OPENAI_API_KEY")
+		configPath := fmt.Sprintf("%s/.cluide-config.yml", os.Getenv("HOME"))
+
+		if _, err := os.Stat(configPath); err == nil {
+			viper.SetConfigName(".cluide-config")
+			viper.SetConfigType("yml")
+			viper.AddConfigPath("$HOME/")
+			if err := viper.ReadInConfig(); err != nil {
+				fmt.Printf("Error reading config file - %s\n", err)
+			}
+		}
+
+		apiToken = viper.GetString("openai.api_key")
+		if apiToken == "" {
+			fmt.Println("Please set the OPENAI_API_KEY environment variable or provide it as part of cluide-config.")
+			return
+		}
 
 		data := ChatRequest{
             Model: model,
