@@ -32,7 +32,7 @@ var askChatCmd = &cobra.Command{
     Use:   "ask-chat",
     Short: "This subcommand directs queries to chatgpt. Post the query as an argument wrapped in quotes.",
     Long:  `Interacting with OpenAI's ChatGPT models require a API key that needs to be set as either as an environment
-	variable - OPENAI_API_KEY, or provided in the cluide-config YAML file.`,
+	variable - OPENAI_API_KEY, or provided in the cluide config TOML file.`,
 	Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
 		var apiToken string
@@ -40,12 +40,13 @@ var askChatCmd = &cobra.Command{
 		client := resty.New()
 		viper.AutomaticEnv()
 		viper.BindEnv("openai.api_key", "OPENAI_API_KEY")
-		configPath := fmt.Sprintf("%s/.cluide-config.yml", os.Getenv("HOME"))
+		configFolder := fmt.Sprintf("%s/.config/cluide/", os.Getenv("HOME"))
+		configPath := fmt.Sprintf("%s/config.toml", configFolder)
 
 		if _, err := os.Stat(configPath); err == nil {
-			viper.SetConfigName(".cluide-config")
-			viper.SetConfigType("yml")
-			viper.AddConfigPath("$HOME/")
+			viper.SetConfigName("config")
+			viper.SetConfigType("toml")
+			viper.AddConfigPath(configFolder)
 			if err := viper.ReadInConfig(); err != nil {
 				fmt.Printf("Error reading config file - %s\n", err)
 			}
