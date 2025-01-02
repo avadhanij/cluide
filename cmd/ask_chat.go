@@ -3,7 +3,9 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"os"
+	"strconv"
 
 	"github.com/avadhanij/cluide/pkg/utils"
 	"github.com/fatih/color"
@@ -12,7 +14,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-var model string 
+var model string
+var robotEmoji string = html.UnescapeString("&#" + strconv.Itoa(129302) + ";")
 
 type ChatRequest struct {
     Model    string `json:"model"`
@@ -90,7 +93,9 @@ var askChatCmd = &cobra.Command{
 			for _, choice := range choices {
 				choiceMap := choice.(map[string]interface{})
 				message := choiceMap["message"].(map[string]interface{})
-				color.Green("\n%s \n", message["content"].(string))
+				
+				fmt.Printf("%s: ", robotEmoji)
+				color.Green("%s \n", message["content"].(string))
 				break
 			}
 		}
