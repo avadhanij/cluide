@@ -14,14 +14,19 @@ Cluide can currently work with
 ## Config
 
 The basic requirement to interact with any AI platform is an API key. The API keys can either be set as environment variables or
-be provided as part of the cluide-config YAML file. The file must be placed in your home directory - `$HOME/.cluide-config.yml`
+be provided as part of the cluide config TOML file. The file must be placed in your home directory - `$HOME/.config/cluide/config.toml`
 
 Example file
 
 ```
-openai:
-    api_key: <insert key here>
+[anthropic]
+api_key = '<your_anthropic_api_key>'
+
+[openai]
+api_key = '<your_openai_api_key>'
 ```
+
+Alternatively, a basic file can be set up by running the `setup-config` subcommand - `cluide setup-config`
 
 ## ChatGPT
 
