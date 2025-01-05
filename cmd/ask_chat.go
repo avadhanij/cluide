@@ -15,6 +15,7 @@ import (
 )
 
 var model string
+var devPrompt string
 var robotEmoji string = html.UnescapeString("&#" + strconv.Itoa(129302) + ";")
 
 type ChatRequest struct {
@@ -58,15 +59,23 @@ var askChatCmd = &cobra.Command{
 			return
 		}
 
+		messages := []Message{
+			{
+				Role:    "user",
+				Content: query,
+			},
+		}
+		if devPrompt != "" {
+			messages = append(messages, Message{
+				Role:    "developer",
+				Content: devPrompt,
+			})
+		}
+
 		data := ChatRequest{
             Model: model,
 			Store: false,
-            Messages: []Message{
-                {
-                    Role:    "user",
-                    Content: query,
-                },
-            },
+            Messages: messages,
         }
 		jsonData, err := utils.CreateJSONString(data)
 		if err != nil {
@@ -117,4 +126,5 @@ func init() {
     rootCmd.AddCommand(askChatCmd)
 
 	askChatCmd.Flags().StringVar(&model, "model", "gpt-4o-mini", "The model to use")
+	askChatCmd.Flags().StringVar(&devPrompt, "dev-prompt", "", "Additional prompt to send as a developer message")
 }
