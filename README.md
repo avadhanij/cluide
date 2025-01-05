@@ -41,3 +41,7 @@ E.g.: `cluide ask-chat "Tell me a haiku"`
 The default model used is `gpt-4o-mini`. It can be overridden using `--model` flag.
 
 E.g.: `cluide ask-chat "Tell me a haiku" --model gpt-4o`
+
+### Developer role
+
+The prompt to influence the response using the `developer` role can be sent using `--dev-prompt` flag.
