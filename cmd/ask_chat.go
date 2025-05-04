@@ -65,12 +65,19 @@ var askChatCmd = &cobra.Command{
 				Content: query,
 			},
 		}
-		if devPrompt != "" {
-			messages = append(messages, Message{
-				Role:    "developer",
-				Content: devPrompt,
-			})
+
+		if devPrompt == "" {
+			devPrompt = `If the user is asking for or about a system command or 
+			if the question is about a command, make the answer extremely concise 
+			and only provide the command with no explanations, unless the original 
+			question asked for explanations.
+			`
 		}
+
+		messages = append(messages, Message{
+			Role:    "developer",
+			Content: devPrompt,
+		})
 
 		data := ChatRequest{
             Model: model,
