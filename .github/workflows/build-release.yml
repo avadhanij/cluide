@@ -42,9 +42,10 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 #v 2.3.2
         with:
-          tag_name: steps.bump_version.outputs.new_tag
-          release_name: Release ${{ steps.bump_version.outputs.new_tag }}
+          tag_name: ${{ steps.bump_version.outputs.new_tag }}
+          name: Release ${{ steps.bump_version.outputs.new_tag }}
           draft: false
           prerelease: false
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
